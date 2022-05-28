@@ -24,8 +24,6 @@ jobs:
       matrix:
         python-version: ["3.10"]
     steps:
-    - name: List current folder before clone
-      run : ls -la
     - name: Git clone app-my repo
       uses: actions/checkout@v1
     - name: List current folder after clone
@@ -52,6 +50,10 @@ jobs:
       matrix:
         python-version: ["3.10"]
     steps:
+    - name: Git clone app-my repo
+      uses: actions/checkout@v1
+    - name: List current folder after clone
+      run : ls -la
     - name: Set up Python ${{ matrix.python-version }} for Pytest
       uses: actions/setup-python@v3
       with:
