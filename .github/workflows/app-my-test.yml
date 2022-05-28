@@ -66,6 +66,7 @@ jobs:
     - name: Test the code with Pytest
       run: |
         echo "Start pytest for app-my code"
+        if [ -d tests ] || [ -d test ]; then python -m pytest; fi
         echo "End pytest"
     
     
