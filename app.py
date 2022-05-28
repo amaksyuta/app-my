@@ -1,7 +1,7 @@
 import math
 
-def add(a, b) -> int:
-    return math.floor(a + b)
+def add(num1, num2) -> int:
+    return math.floor(num1 + num2)
 
 
 def main():
