@@ -8,15 +8,16 @@
 #---------------------------------------------------------------------
 
 name: My-App-CI-Test
-
+env:
+  APPLICATION_NAME    : "AppMy"
+  DEPLOY_PACKAGE_NAME : "app-my-ver-${{ github.sha }}"
+  
 on:
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
 
-permissions:
-  contents: read
 
 jobs:
   app-ci-lint:
