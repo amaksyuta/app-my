@@ -1,5 +1,5 @@
 #---------------------------------------------------------------------
-# GitHub Action CI Linter and Test Basics
+# GitHub Action CI PyLinter and PyTest Basics
 #
 # Version      Date        Info
 # 1.0          2022        Initial Version
@@ -26,7 +26,7 @@ jobs:
     steps:
     - name: Git clone ${{ env.APPLICATION_NAME }} repo
       uses: actions/checkout@v1
-    - name: List current folder after clone
+    - name: List current folder after clone with version "${{ env.APPLICATION_VERSION }}"
       run : ls -la
     - name: Set up Python ${{ matrix.python-version }} for Pylint
       uses: actions/setup-python@v3
@@ -52,7 +52,7 @@ jobs:
     steps:
     - name: Git clone ${{ env.APPLICATION_NAME }} repo
       uses: actions/checkout@v1
-    - name: List current folder after clone
+    - name: List current folder after clone with version "${{ env.APPLICATION_VERSION }}"
       run : ls -la
     - name: Set up Python ${{ matrix.python-version }} for Pytest
       uses: actions/setup-python@v3
