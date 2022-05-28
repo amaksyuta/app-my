@@ -38,8 +38,8 @@ jobs:
         pip install pylint
     - name: Analysing the code with Pylint
       run: |
-        #pylint $(git ls-files '*.py')
         echo "Start pylint for app-my code"
+        pylint $(git ls-files '*.py')
         echo "End pylint"
 
 # Start Pytest check for python app-my        
