@@ -1,23 +1,57 @@
-name: Pylint
+#---------------------------------------------------------------------
+# GitHub Action CI Linter and Test Basics
+#
+# Version      Date        Info
+# 1.0          2022        Initial Version
+#
+# Made by Andrey Maksyuta Python Copyleft (c) 2022
+#---------------------------------------------------------------------
+
+name: My-App-CI-Test
+env:
+  APPLICATION_NAME    : "AppMy"
+  DEPLOY_PACKAGE_NAME : "app-my-ver-${{ github.sha }}"
 
 on: [push]
 
 jobs:
-  build:
+  pylint_build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.8", "3.9", "3.10"]
+        python-version: ["3.8", "3.10"]
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v3
       with:
         python-version: ${{ matrix.python-version }}
-    - name: Install dependencies
+    - name: Install dependencies for Lint
       run: |
         python -m pip install --upgrade pip
         pip install pylint
     - name: Analysing the code with pylint
       run: |
         pylint $(git ls-files '*.py')
+        
+  pytest_build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.8", "3.10"]
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies for test
+      run: |
+        python -m pip install --upgrade pip
+        pip install pylint
+    - name: Analysing the code with pylint
+      run: |
+        pylint $(git ls-files '*.py')
+    
+    
+  
