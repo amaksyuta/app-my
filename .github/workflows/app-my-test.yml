@@ -10,8 +10,8 @@
 # My app CI name
 name: App-My-CI-Test
 env:
-  APPLICATION_NAME       : "AppMy"
-  DEPLOY_PACKAGE_VERSION : "app-my-ver-${{ github.sha }}"
+  APPLICATION_NAME    : "app-my"
+  APPLICATION_VERSION : "app-my-ver-${{ github.sha }}"
 
 # Start checking code on all branches
 on: [push]
@@ -24,7 +24,7 @@ jobs:
       matrix:
         python-version: ["3.10"]
     steps:
-    - name: Git clone app-my repo
+    - name: Git clone "${{ env.APPLICATION_NAME }}" repo
       uses: actions/checkout@v1
     - name: List current folder after clone
       run : ls -la
