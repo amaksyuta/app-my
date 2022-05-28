@@ -6,7 +6,7 @@ print("Hello App")
 
 
 def main():
-  print("This is main function")
+  print("Hello Function")
   
   
 if __name__ == '__main__':
