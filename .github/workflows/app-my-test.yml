@@ -25,6 +25,8 @@ jobs:
         python-version: ["3.10"]
     steps:
     - uses: actions/checkout@v3
+    - name: List current folder
+      run : ls -la
     - name: Set up Python ${{ matrix.python-version }} for Pylint
       uses: actions/setup-python@v3
       with:
@@ -36,8 +38,8 @@ jobs:
     - name: Analysing the code with Pylint
       run: |
         #pylint $(git ls-files '*.py')
-        echo "Start pylint test"
-        echo "End pylint test"
+        echo "Start pylint for app-my code"
+        echo "End pylint"
 
 # Start Pytest check for python app-my        
   pytest_check:
@@ -48,6 +50,8 @@ jobs:
         python-version: ["3.10"]
     steps:
     - uses: actions/checkout@v3
+    - name: List current folder
+      run : ls -la
     - name: Set up Python ${{ matrix.python-version }} for Pytest
       uses: actions/setup-python@v3
       with:
@@ -58,8 +62,8 @@ jobs:
         pip install pytest
     - name: Test the code with Pytest
       run: |
-        echo "Test start"
-        echo "Test End"
+        echo "Start pytest for app-my code"
+        echo "End pytest"
     
     
   
