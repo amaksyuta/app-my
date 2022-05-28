@@ -39,7 +39,8 @@ jobs:
     - name: Analysing the code with Pylint
       run: |
         echo "Start pylint for app-my code"
-        pylint $(git ls-files '*.py')
+        #pylint $(git ls-files '*.py')
+        pylint */*.py --disable=missing-docstring
         echo "End pylint"
 
 # Start Pytest check for python app-my        
