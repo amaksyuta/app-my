@@ -10,8 +10,8 @@
 # My app CI name
 name: My-App-CI-Test
 env:
-  APPLICATION_NAME    : "AppMy"
-  DEPLOY_PACKAGE_NAME : "app-my-ver-${{ github.sha }}"
+  APPLICATION_NAME       : "AppMy"
+  DEPLOY_PACKAGE_VERSION : "app-my-ver-${{ github.sha }}"
 
 # Start checking code on all branches
 on: [push]
@@ -29,11 +29,11 @@ jobs:
       uses: actions/setup-python@v3
       with:
         python-version: ${{ matrix.python-version }}
-    - name: Install dependencies for Lint
+    - name: Install dependencies for Pylint
       run: |
         python -m pip install --upgrade pip
         pip install pylint
-    - name: Analysing the code with pylint
+    - name: Analysing the code with Pylint
       run: |
         #pylint $(git ls-files '*.py')
         echo "Start pylint test"
@@ -45,18 +45,18 @@ jobs:
     needs: [pylint_check]
     strategy:
       matrix:
-        python-version: ["3.8", "3.10"]
+        python-version: ["3.10"]
     steps:
     - uses: actions/checkout@v3
-    - name: Set up Python ${{ matrix.python-version }} for pytest
+    - name: Set up Python ${{ matrix.python-version }} for Pytest
       uses: actions/setup-python@v3
       with:
         python-version: ${{ matrix.python-version }}
-    - name: Install dependencies for test
+    - name: Install dependencies for Pytest
       run: |
         python -m pip install --upgrade pip
         pip install pylint
-    - name: Test the code with pytest
+    - name: Test the code with Pytest
       run: |
         echo "Test start"
         echo "Test End"
