@@ -24,6 +24,7 @@ jobs:
       matrix:
         python-version: ["3.10"]
     steps:
+    - name: Git clone app-my repo
     - uses: actions/checkout@v3
     - name: List current folder
       run : ls -la
@@ -49,6 +50,7 @@ jobs:
       matrix:
         python-version: ["3.10"]
     steps:
+    - name: Git clone app-my repo
     - uses: actions/checkout@v3
     - name: List current folder
       run : ls -la
