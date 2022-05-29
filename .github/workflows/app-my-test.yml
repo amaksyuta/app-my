@@ -39,7 +39,6 @@ jobs:
     - name: Analysing the code with Pylint
       run: |
         echo "Start pylint for app-my code"
-        #pylint $(git ls-files '*.py')
         pylint $(git ls-files '*.py') --disable=missing-docstring
         echo "End pylint"
 
@@ -63,6 +62,7 @@ jobs:
     - name: Install dependencies for Pytest
       run: |
         python -m pip install --upgrade pip
+#        pip install -r requirements.txt
         pip install pytest
     - name: Test the code with Pytest
       run: |
