@@ -66,8 +66,8 @@ jobs:
         pip install pytest
     - name: Test the code with Pytest
       run: |
-        echo "Start pytest for app-my code"
-        if [ -d tests ] || [ -d test ]; then python -m pytest; fi
+        echo "Start pytest for ${{ env.APPLICATION_NAME }} code"
+        if [ -f test_app.py ]; then python -m pytest test_app.py; fi
         echo "End pytest"
     
     

@@ -1,13 +1,9 @@
-import math
-
-def add(num1, num2) -> int:
-    return math.floor(num1 + num2)
-
-
-def main():
+def main( ):
     print("Hello Function")
+
+def fib(n: int) -> int:
+    return n if n < 2 else fib(n-1)+fib(n-2)
 
 
 if __name__ == "__main__":
-    main()
-    add(3, 5)
+    main( )
