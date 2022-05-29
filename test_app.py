@@ -8,3 +8,4 @@ def test_summ():
     assert app.summ(2, 5) == 7
     assert app.summ(3, 4) == 7
     assert app.summ(2, 4) == 6
+    
