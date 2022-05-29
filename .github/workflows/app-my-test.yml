@@ -62,8 +62,9 @@ jobs:
     - name: Install dependencies for Pytest
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements.txt
-        pip install -e .
+        pip install pytest
+#        pip install -r requirements.txt
+#        pip install -e .
     - name: Test the code with Pytest
       run: |
         echo "Start pytest for ${{ env.APPLICATION_NAME }} code"
