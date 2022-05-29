@@ -1,1 +1,9 @@
 pytest
+iniconfig
+tomli
+pyparsing
+py
+pluggy
+attrs
+packaging
+
