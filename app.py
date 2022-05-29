@@ -9,5 +9,5 @@ def main():
 
 
 if __name__ == "__main__":
-    fffmain()
+    main()
     add(3, 5)
