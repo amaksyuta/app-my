@@ -46,7 +46,8 @@ jobs:
 # Start Pytest check for python app-my        
   pytest_check:
     runs-on: ubuntu-latest
-    needs: [pylint_check]
+# Run steps in paralle
+#    needs: [pylint_check]
     strategy:
       matrix:
         python-version: ["3.10"]
