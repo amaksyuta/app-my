@@ -1,9 +1,5 @@
 #!/usr/bin/env python
 # Import modules
-import os
-import subprocess
-import re
-import sys, getopt
 import argparse
 from __version import __version__
 
