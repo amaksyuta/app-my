@@ -51,10 +51,21 @@ class App:
         pass
 
 
+    def check_obj_exist(self, obj):
+        """ Check if object exist """
+        if os.path.exists(obj):
+            try:
+                os.remove(obj)
+            except OSError as e:
+                print(f"[ERROR]: {e.obj} - {e.strerror}.")
+        else:
+            print(f"[WARNING]: Looks like {obj} object has been removed or doesn't exist")
+
+
 def main():
     args = create_parser()
     print(f"Current parameters: {args}")
-    result = App(input=args.input, output=args.output)
+    App(input=args.input, output=args.output)
     sys.stderr.close
 
 
