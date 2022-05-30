@@ -11,9 +11,9 @@
 name: App-My-CI-Test
 env:
   APPLICATION_NAME    : "app-my"
-  APPLICATION_VERSION : "app-my-ver-${{ github.sha }}"
+  APPLICATION_VERSION : "app-my-ver-0.0.1-${{ github.sha }}"
 
-# Start checking code on all branches
+# Start checking code on push event for all branches
 on: [push]
 
 # Start Pylint check for current python app-my code
@@ -45,7 +45,7 @@ jobs:
 # Start Pytest check for python app-my        
   pytest_check:
     runs-on: ubuntu-latest
-# Run steps in paralle
+# Run steps in paralle, but could uncomment bellow for step by step build
 #    needs: [pylint_check]
     strategy:
       matrix:
@@ -71,5 +71,3 @@ jobs:
         if [ -f test_app.py ]; then python -m pytest --import-mode=append test_app.py; fi
         echo "End pytest"
     
-    
-  
