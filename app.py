@@ -3,6 +3,7 @@
 
 import sys
 import os
+import pickle
 import argparse
 from __version import __version__
 
@@ -66,6 +67,15 @@ def main():
     args = create_parser()
     print(f"Current parameters: {args}")
     App(input=args.input, output=args.output)
+    personal_data = {
+        "name": ["Cristiano Ronaldo", "Lionel Messi", "Eden Hazard", "Neymar"],
+        "address": ["Manchester United", "PSG", "Real Madrid", "Atletico Madrid", "PSG"],
+        "phone": ["234", "54545", "6666", "2234", "33334"]
+    }
+    print(personal_data)
+    personal_data_file = open('persons.txt', 'wb')
+    pickle.dump(personal_data, personal_data_file)
+    personal_data_file.close()
     sys.stderr.close
 
 
