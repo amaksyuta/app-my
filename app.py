@@ -49,8 +49,8 @@ class App:
     def check_file_exist(self):
         """ Check if file exist """
         pass
-    
-    
+
+
 def main():
     args = create_parser()
     print(f"Current parameters: {args}")
