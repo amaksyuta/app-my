@@ -1,5 +1,6 @@
 #!/usr/bin/env python
-# Import modules
+
+
 import argparse
 from __version import __version__
 
@@ -38,4 +39,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main( )
+    main()
