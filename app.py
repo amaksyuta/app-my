@@ -1,5 +1,4 @@
-def main( ):
-    print("Hello Function")
+#!/usr/bin/env python
 
 
 def fib(num: int) -> int:
@@ -8,6 +7,12 @@ def fib(num: int) -> int:
 
 def summ(one, two):
     return one + two
+
+
+def main( ):
+    print("Hello Function")
+    fib(20)
+    summ(2, 5)
 
 
 if __name__ == "__main__":
