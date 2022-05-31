@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 
 
+import argparse
 import sys
 import os
 import pickle
-import argparse
+import pandas as pd
 from __version import __version__
 
 
@@ -37,14 +38,14 @@ def summ(one, two):
 
 
 class App:
-    def __init__(self, input, output):
-        self.input = input
-        self.output = output
-        print(f"Input file name: {self.input}, Output file name: {self.output}")
+    def __init__(self, ifile, ofile):
+        self.ifile = ifile
+        self.ofile = ofile
+        print(f"Input file name: {self.ifile}, Output file name: {self.ofile}")
 
 
     def check_extention(self):
-        """ Check file extensions"""
+        """ Check file extensions """
         pass
 
     def check_file_exist(self):
@@ -66,16 +67,29 @@ class App:
 def main():
     args = create_parser()
     print(f"Current parameters: {args}")
-    App(input=args.input, output=args.output)
-    personal_data = {
-        "name": ["Cristiano Ronaldo", "Lionel Messi", "Eden Hazard", "Neymar"],
-        "address": ["Manchester United", "PSG", "Real Madrid", "Atletico Madrid", "PSG"],
-        "phone": ["234", "54545", "6666", "2234", "33334"]
-    }
-    print(personal_data)
+    #App(ifile=args.input, ofile=args.output)
+    d = {}
+    name = []
+    address = []
+    phone = []
+    input_file = args.input
+    with open(input_file, encoding='utf8') as f:
+        for line in f:
+            l = line.strip().split(",")
+            name.append(l[0])
+            address.append(l[1])
+            phone.append(int(l[2]))
+        d["name"] = name
+        d["address"] = address
+        d["phone"] = phone  
+    print(d)
+    
+    # Serealize data to the file
     personal_data_file = open('persons.txt', 'wb')
-    pickle.dump(personal_data, personal_data_file)
+    pickle.dump(d, personal_data_file)
     personal_data_file.close()
+    df = pd.DataFrame(d)
+    print(df)
     sys.stderr.close
 
 
