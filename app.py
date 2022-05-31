@@ -81,15 +81,16 @@ def main():
         
         keys = ["name", "address", "phone"]
         values = [name, address, phone]
-        d = dict(zip(keys, values))
+        data = dict(zip(keys, values))
                
-    print(d)
+    print(data)
     
     # Serealize data to the file
-    personal_data_file = open('persons.txt', 'wb')
-    pickle.dump(d, personal_data_file)
-    personal_data_file.close()
-    df = pd.DataFrame(d)
+    data_file = open('persons.txt', 'wb')
+    pickle.dump(data, data_file)
+    data_file.close()
+    
+    df = pd.DataFrame(data)
     print(df)
     sys.stderr.close
 
