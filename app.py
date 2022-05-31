@@ -68,7 +68,6 @@ def main():
     args = create_parser()
     print(f"Current parameters: {args}")
     #App(ifile=args.input, ofile=args.output)
-    d = {}
     name = []
     address = []
     phone = []
@@ -79,9 +78,11 @@ def main():
             name.append(l[0])
             address.append(l[1])
             phone.append(int(l[2]))
-        d["name"] = name
-        d["address"] = address
-        d["phone"] = phone  
+        
+        keys = ["name", "address", "phone"]
+        values = [name, address, phone]
+        d = dict(zip(keys, values))
+               
     print(d)
     
     # Serealize data to the file
