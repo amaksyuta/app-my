@@ -4,6 +4,7 @@
 import argparse
 import sys
 import os
+import json
 import pickle
 import pandas as pd
 from __version import __version__
@@ -37,7 +38,7 @@ def summ(one, two):
     return one + two
 
 
-class App:
+class Person:
     def __init__(self, ifile, ofile):
         self.ifile = ifile
         self.ofile = ofile
@@ -67,31 +68,37 @@ class App:
 def main():
     args = create_parser()
     print(f"Current parameters: {args}")
-    #App(ifile=args.input, ofile=args.output)
+    input_file = args.input
+    output_file = args.output
+    Person(ifile=input_file, ofile=output_file)
     name = []
     address = []
     phone = []
-    input_file = args.input
     with open(input_file, encoding='utf8') as f:
         for line in f:
             l = line.strip().split(",")
             name.append(l[0])
             address.append(l[1])
-            phone.append(int(l[2]))
-        
+            phone.append(int(l[2]))       
         keys = ["name", "address", "phone"]
         values = [name, address, phone]
-        data = dict(zip(keys, values))
-               
-    print(data)
-    
-    # Serealize data to the file
-    data_file = open('persons.txt', 'wb')
-    pickle.dump(data, data_file)
-    data_file.close()
-    
-    df = pd.DataFrame(data)
+        data = dict(zip(keys, values))    
+    # Serealize data 
+    print("Serialize data to the object")
+    ser = pickle.dumps(data)
+    print(ser)
+    # Deserialise data
+    print("Deserialize data from the object")
+    deser = pickle.loads(ser)
+    print(deser)
+    # Convert object-data to the proper format
+    df = pd.DataFrame(deser)
+    print("Print data from DataFrame objeckt")
     print(df)
+    print("Convert data to csv format")
+    df.to_csv(output_file, index=False)
+    print("Convert data to json format")
+    df.to_json('test.json', orient='records', lines=True)
     sys.stderr.close
 
 
