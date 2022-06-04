@@ -43,7 +43,7 @@ jobs:
         echo "End pylint"
 
 # Start Pytest check for python app-my        
-  pytest_check:
+  pytest_check_linux:
     runs-on: ubuntu-latest
 # Run steps in paralle, but could uncomment bellow for step by step build
 #    needs: [pylint_check]
@@ -70,4 +70,19 @@ jobs:
         echo "Start pytest for ${{ env.APPLICATION_NAME }} code"
         if [ -f test_app.py ]; then python -m pytest --import-mode=append test_app.py; fi
         echo "End pytest"
+    
+  pytest_check_windows:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        python-version: ["3.10"]
+    steps:
+        - name: Git clone ${{ env.APPLICATION_NAME }} repo
+        - uses: actions/checkout@v2
+        - name: List current folder after clone with version "${{ env.APPLICATION_VERSION }}"
+          run : dir
+        - name: Build
+          run: dir
+        - name: Run tests
+          run: dir
     
