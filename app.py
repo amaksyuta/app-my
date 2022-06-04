@@ -37,12 +37,9 @@ class Person:
     
 
     def encode(self):
+        """ For corect encode object """
         return self.__dict__
     
-
-    def toJson(self):
-        return json.dumps(self, default=lambda o:o.__dict__)
-
 
 def pp_json_file(path, file):
     """ Pretty print JSON file to console """
