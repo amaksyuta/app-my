@@ -4,14 +4,13 @@
 import argparse
 import sys
 import os
+import pathlib
 import json
-import pickle
-import pandas as pd
-from __version import __version__
+from version import __version__
 
 
 def create_parser():
-    """ Function for parsing commandline parameters """
+    """ Function for parsing command line parameters """
     parser = argparse.ArgumentParser(
         description="Command line tool for serialise/deserialise data",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,)
@@ -30,77 +29,138 @@ def create_parser():
     return args
 
 
-def fib(num: int) -> int:
-    return num if num < 2 else fib(num-1)+fib(num-2)
-
-
-def summ(one, two):
-    return one + two
-
-
 class Person:
-    def __init__(self, ifile, ofile):
-        self.ifile = ifile
-        self.ofile = ofile
-        print(f"Input file name: {self.ifile}, Output file name: {self.ofile}")
+    def __init__(self, name, address, phone):
+        self.name = name
+        self.address = address
+        self.phone = phone
+    
+
+    def encode(self):
+        return self.__dict__
+    
+
+    def toJson(self):
+        return json.dumps(self, default=lambda o:o.__dict__)
 
 
-    def check_extention(self):
-        """ Check file extensions """
-        pass
-
-    def check_file_exist(self):
-        """ Check if file exist """
-        pass
+def pp_json_file(path, file):
+    """ Pretty print JSON file to console """
+    print(json.dumps(json.load(open(os.path.join(path, file), "r")), indent = 4))
 
 
-    def check_obj_exist(self, obj):
-        """ Check if object exist """
-        if os.path.exists(obj):
-            try:
-                os.remove(obj)
-            except OSError as e:
-                print(f"[ERROR]: {e.obj} - {e.strerror}.")
+def get_file_extension(f):
+    """ Function return file extention """
+    file_extension = pathlib.Path(f).suffix
+    exten = file_extension.split(".")[1]
+    return exten
+
+
+def get_file_name(f):
+    """ Function return file name """
+    file_name = pathlib.Path(f).stem
+    return file_name
+
+
+def csv_ser(items, f):
+    """ CVS format desserialization function """
+    print("Serialize csv data to the object")
+    file = open(f, 'w')
+    file.write(f'name,address,phone')
+    for i in range(len(items)):
+        file.write(f'\n{items[i].name},{items[i].address},{items[i].phone}')
+    file.close()
+
+
+def txt_ser(items, f):
+    """ TXT serialization function """
+    print("Serialize txt data to the object")
+    file = open(f, 'w')
+    for i in range(len(items)):
+        if i == 0:
+            file.write(f'{items[i].name},{items[i].address},{items[i].phone}')
         else:
-            print(f"[WARNING]: Looks like {obj} object has been removed or doesn't exist")
+            file.write(f'\n{items[i].name},{items[i].address},{items[i].phone}')
+    file.close()
+    
+
+def json_ser(items, f):
+    """ JSON serialization function """
+    print("Serialize Json data to the object")
+    with open(f, 'w') as file:
+        json.dump(items, fp=file, default=lambda o: o.encode(), indent=4)
+    #print(json.dump(items, fp=file, default=lambda o: o.encode(), indent=4))
+    file.close()
+
+
+def csv_des(f):
+    """ CVS format desserialization function """
+    result = []
+    with open(f, encoding='utf8') as f:
+        # Skip firs line header in CSV
+        lines = f.readlines()[1:]
+        for line in lines:
+            l = line.strip().split(",")
+            result.append(Person(l[0], l[1], l[2]))     
+    return result
+
+
+def txt_des(f):
+    """ TXT deserialization function """
+    print("Deserialize data from the object")
+    result = []
+    with open(f, encoding='utf8') as f:
+        for line in f:
+            l = line.strip().split(",")
+            result.append(Person(l[0], l[1], l[2]))     
+    return result
+
+
+def json_des(f):
+    """ JSON deserialization function """
+    print("Serialize data to the object")
+    # opening the JSON file
+    fp = open(f,'r')
+    items = json.load(fp)
+    result = []
+    for item in items:
+        result.append(Person(item['name'], item['address'], item['phone']))
+    return result
 
 
 def main():
+    """ Main function parsiong and serialise/deserialize files """
+    # Create parser object for handling application command line parameters by keys
     args = create_parser()
-    print(f"Current parameters: {args}")
-    input_file = args.input
-    output_file = args.output
-    Person(ifile=input_file, ofile=output_file)
-    name = []
-    address = []
-    phone = []
-    with open(input_file, encoding='utf8') as f:
-        for line in f:
-            l = line.strip().split(",")
-            name.append(l[0])
-            address.append(l[1])
-            phone.append(int(l[2]))       
-        keys = ["name", "address", "phone"]
-        values = [name, address, phone]
-        data = dict(zip(keys, values))    
-    # Serealize data 
-    print("Serialize data to the object")
-    ser = pickle.dumps(data)
-    print(ser)
-    # Deserialise data
-    print("Deserialize data from the object")
-    deser = pickle.loads(ser)
-    print(deser)
-    # Convert object-data to the proper format
-    df = pd.DataFrame(deser)
-    print("Print data from DataFrame objeckt")
-    print(df)
-    print("Convert data to csv format")
-    df.to_csv(output_file, index=False)
-    print("Convert data to json format")
-    df.to_json('test.json', orient='records', lines=True)
-    sys.stderr.close
-
-
+    print(f"[INFO]: Current parameters: {args}")
+    # Set variables for input/out files
+    in_file = args.input
+    out_file = args.output
+    # Create a dictionary with supported file formats for serialisation and deserialization
+    serializers = {"csv":csv_ser, "txt":txt_ser, "json":json_ser}
+    deserializers = {"csv":csv_des, "txt":txt_des, "json":json_des}
+    # Print supported formats for serialization and deserialization
+    print(f"Supported serializers: {[key for key in serializers.keys()]}")
+    print(f"Supported deserializers: {[key for key in deserializers.keys()]}")
+    # Check input/output files extentions - make sys.exit() in case unsupported format
+    if get_file_extension(in_file) not in deserializers.keys():
+        in_extention = get_file_extension(in_file)
+        in_file_name = get_file_name(in_file)
+        print(f"[ERROR]: *.{in_extention} unsupported input file - {in_file_name}.{in_extention}  format")
+        sys.exit(1)
+    if get_file_extension(out_file) not in serializers.keys():
+        out_extention = get_file_extension(out_file)
+        out_file_name = get_file_name(out_file)
+        print(f"[ERROR]: *.{out_extention} unsupported output file - {out_file_name}.{out_extention}  format")
+        sys.exit(1)
+    # Set items for deserialize objects from input file
+    items = deserializers[get_file_extension(in_file)](in_file)
+    #print([x.toJson() for x in items])
+    serializers[get_file_extension(out_file)](items, out_file)
+    print(f"\n[INFO]: Display content serialized file: {out_file}\n")
+    f = open(out_file, "r")
+    print(f.read())
+    f.close()
+    
 if __name__ == "__main__":
     main()
