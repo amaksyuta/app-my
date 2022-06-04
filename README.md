@@ -27,3 +27,5 @@ Run in CMD : `pip install pathlib`.
 
 Run in CMD : `./app.py -i test.txt -o test444.json`.
 
+![Screenshot](misc/cmd_use.png)
+
