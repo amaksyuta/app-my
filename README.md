@@ -37,8 +37,8 @@ Run in CMD : `./app.py -i test.txt -o test444.json`.
 
 Put this content to the file test.txt in Root directory:
 
-`Bob,Manchectes Street 56,3456 <br>
-Anna,Amelie Avenu 33,5667 <br>
-Sam,Sant Jones Street 39,2345 <br>
-Diego,Mary Street 66,7689 <br>`
+`Bob,Manchectes Street 56,3456` <br>
+`Anna,Amelie Avenu 33,5667` <br>
+`Sam,Sant Jones Street 39,2345` <br>
+`Diego,Mary Street 66,7689` <br>
 
