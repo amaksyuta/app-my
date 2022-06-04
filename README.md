@@ -7,6 +7,10 @@ Status of last CI Workflow pylint and pytests results:<br>
 
 Copyleft by Andrey Maksyuta  app-my 2022.
 
+## Application architecture 
+
+![Screenshot](misc/app_arch.png)
+
 ## 1. System requirements ==> Python3.10.4, git2.45
 
 Git:
