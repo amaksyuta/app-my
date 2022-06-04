@@ -33,3 +33,12 @@ Run in CMD : `./app.py -i test.txt -o test444.json`.
 
 ![Screenshot](misc/cmd_use.png)
 
+## 3. Test txt input file content:
+
+Put this content to the file test.txt in Root directory:
+
+`Bob,Manchectes Street 56,3456
+Anna,Amelie Avenu 33,5667
+Sam,Sant Jones Street 39,2345
+Diego,Mary Street 66,7689`
+
