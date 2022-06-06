@@ -60,7 +60,7 @@ def get_file_name(f):
 
 
 def csv_ser(items, f):
-    """ CVS format desserialization function """
+    """ CVS format serialization function """
     print("Serialize csv data to the object")
     file = open(f, 'w')
     file.write(f'name,address,phone')
