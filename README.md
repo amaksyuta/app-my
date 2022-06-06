@@ -1,5 +1,5 @@
 # app-my
-My test application for python based serialize/deserialize functions
+My test application for python based serialize/deserialize data
 
 Status of last CI Workflow pylint and pytests results:<br>
 <br>
